@@ -1,4 +1,5 @@
-#display {
+#display, 
+#display-equation {
     height:50px;
     width: 200px;
     border: black 2px solid;

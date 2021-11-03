@@ -1,0 +1,218 @@
+var displayValue ;
+var data = {};
+//create an object containing val1, val 2, and operate. 
+//Once equal is pressed, call operate.
+//if object is full, and another operater is pressed call operate
+const finalButton = document.querySelectorAll('.final-step');
+finalButton.forEach((button)=> button.addEventListener('click',check));
+
+const buttons = document.querySelectorAll('.button');
+buttons.forEach((button)=> button.addEventListener('click', display));
+
+function check(e){
+    if (e.target.value === '='){
+        operate(data);
+    }
+    else{
+        data.forEach(element => delete data.element);
+    }
+}
+
+
+function display(e){
+    displayValue = e.target.value;
+    populatorFunction(data, displayValue);
+
+    //display in displaybox
+    console.log (displayValue);
+    const display = document.getElementById('display');
+    display.textContent = displayValue;
+}
+
+
+
+function populatorFunction(data, displayValue){
+    const displayValueParsed = parseInt(displayValue);
+    if (Number.isNaN(displayValueParsed) === false) {
+        if (data.firstNumber != null) {
+            data.secondNumber = displayValue ;
+        }
+        else{
+            data.firstNumber = displayValue;
+        }
+    }
+    else {
+        data.operator = displayValue ;
+    }
+}
+
+const getSum = function(a,b){
+    return (+a + +b);
+}
+
+function getDifference(a,b){
+    return a - b;
+}
+
+function getDivide(a,b){
+    if (b = 0){
+        // return error
+    }
+    else{
+        return (a / b);
+    }
+}
+
+function getProduct(a,b){
+    return a * b;
+}
+
+function operate(data){
+
+    //try to use cases here.
+    if (data.operator === "+"){
+        displayValue = getSum(data.firstNumber,data.secondNumber);
+        displayAnswer(displayValue);
+    }
+    else if (data.operator === "-"){
+        displayValue = getDifference(data.firstNumber,data.secondNumber);
+        displayAnswer(displayValue);
+    }
+    else if (data.operator === "/"){
+        displayValue = getDivide(data.firstNumber,data.secondNumber);
+        displayAnswer(displayValue);
+    }
+    else if (data.operator === "*"){
+        displayValue = getProduct(data.firstNumber,data.secondNumber);
+        displayAnswer(displayValue);
+    }
+}
+
+function displayAnswer (a){
+    const display = document.getElementById('display');
+    display.textContent = a;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addToDisplayValue(e){
+    
+    
+        //chekcing if the previous display was a symbol then start a new number, else keep on adding to the number
+        if (isNaN(parseInt(displayValue)) === false) { 
+            
+                newDigit= e.target.value;
+                displayValue += newDigit;
+                display(displayValue);
+        }
+        else{
+            displayValue = e.target.value;
+            display(displayValue);
+        }
+        
+    
+   
+}
+
+function addToContainer(e){
+    
+    numberContainer.push(displayValue);
+    displayValue = e.target.vlaue;
+    const i = numberContainer.length;
+    if(i > 1){
+        displayValue = e.target.value;
+        display(displayValue);
+    }
+    else{
+        result = add(numberContainer[i-2],numberContainer[i-1]);
+        display(result);
+        displayValue = result;
+    }
+}
+
+function display(a){
+    const display = document.getElementById('display');
+    display.textContent = a;
+}
+const add = function(a,b) {
+    return +a + +b;
+      
+  };
+  
+const subtract = function(a,b) {
+    return a - b;
+      
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if (displayValue2.length > 0 ){
+        
+            displayValue2.push(e.target.value);
+            let displayString = '';
+            for (let i=0; i < displayValue2.length; i++){
+                displayString += displayValue2[i];
+            }
+
+            display(displayString, display2);
+        
+        
+        
+
+    }
+
+    //once 4 values accumulate, reset the array of display2, add result and the next symbol clicked. 
+
+    if (displayValue2.length > 4){
+        displayValue2.length = 0;
+        displayValue2.push(result);
+        displayValue2.push(e.target.value);
+        displayString = '';
+        for (let i=0; i < displayValue2.length; i++){
+            
+            displayString += displayValue2[i];
+           
+        }
+
+        display(displayString, display2);
+        
+        
+
+    }
