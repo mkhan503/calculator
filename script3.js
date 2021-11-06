@@ -32,9 +32,6 @@ function symbolClicked(e){
         return;
     }
 
-    
-    
-
     //if there is no value in val1, then assign to it, else to val2
     if(dataObj.val1 === ''){
         dataObj.val1 = displayValue;
@@ -63,6 +60,7 @@ function symbolClicked(e){
         dataObj.val2 = displayValue;
             displayValue = '';
             result = operate(dataObj);
+            result = Math.round(result *1000)/1000;
             display(result, display1);
         // add if statement to ensure that result goes to display2 when symbol other than = is pressed. 
         if(e.target.value != '='){            
@@ -83,6 +81,7 @@ function symbolClicked(e){
 
     }
 }
+
 
 function erase(e){
     if (display1.textContent != result){
