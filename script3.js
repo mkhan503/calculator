@@ -1,28 +1,25 @@
-var dataObj = {
+let dataObj = {
     val1:'', 
     val2:'',
     symbol:'',
 };
-
-var displayValue = '';
+let displayValue = '';
 const initialValue = 0;
 let result;
 
 const display1 = document.getElementById('display');
 const display2 = document.getElementById('display2');
 const deleteIt = document.getElementById('delete');
-deleteIt.addEventListener('click', erase);
-
-display(initialValue, display1);
-
 const numbers = document.querySelectorAll('.number');
+const symbols = document.querySelectorAll('.symbol');
+const clear = document.getElementById('clear');
+
+symbols.forEach((symbol)=> symbol.addEventListener('click', symbolClicked));
+clear.addEventListener('click',reset);
+deleteIt.addEventListener('click', erase);
 numbers.forEach((number)=> number.addEventListener('click', displayNumber));
 
-const symbols = document.querySelectorAll('.symbol');
-symbols.forEach((symbol)=> symbol.addEventListener('click', symbolClicked));
-
-const clear = document.getElementById('clear');
-clear.addEventListener('click',reset);
+display(initialValue, display1);
 
 function symbolClicked(e){
     //if number is clicked then that is display value, if directly symbol is clicked then return 
@@ -31,13 +28,20 @@ function symbolClicked(e){
         return;       
     }
 
+    if (dataObj.val1 === '' && e.target.value === '='){
+        return;
+    }
+
+    
+    
+
     //if there is no value in val1, then assign to it, else to val2
     if(dataObj.val1 === ''){
         dataObj.val1 = displayValue;
+        dataObj.symbol = e.target.value;
         //displayValue is uploaded to obj, reset it.
         displayValue = '';
-        dataObj.symbol = e.target.value;
-        
+               
         const displayString = dataObj.val1 + dataObj.symbol;
         display(displayString, display2);
 
