@@ -25,8 +25,17 @@ function symbolClicked(e){
     //if number is clicked then that is display value, if directly symbol is clicked then return 
     //UPLOAD values to object
     if (dataObj.val1 === '' && displayValue ===''){
-        return;       
+        if (e.target.value != '-'){
+            return;
+        }
+        else{
+            displayValue = e.target.value;
+            display(displayValue, display1);
+            return;
+        }
+               
     }
+
 
     if (dataObj.val1 === '' && e.target.value === '='){
         return;
@@ -61,7 +70,13 @@ function symbolClicked(e){
             displayValue = '';
             result = operate(dataObj);
             result = Math.round(result *1000)/1000;
-            display(result, display1);
+            if (isNaN(result)){
+                display('ERROR', display1);
+            }
+            else{
+                display(result, display1);
+            }
+            
         // add if statement to ensure that result goes to display2 when symbol other than = is pressed. 
         if(e.target.value != '='){            
             const displayString = result + e.target.value ;
